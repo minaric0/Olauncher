@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Olauncher</string>
     <string name="github" translatable="false">Github</string>
     <string name="lock_layout_description" translatable="false">lock layout description to be used a unique id to lock screen</string>
@@ -180,4 +180,9 @@
     <string name="invalid_shortcut">Invalid shortcut</string>
     <string name="shortcut_not_found">Shortcut not found</string>
     <string name="unable_to_open_shortcut">Unable to open shortcut</string>
+    <string name="personal_app_name" translatable="false">Olauncher 200</string>
+    <!-- English fallback is intentional outside the English and Korean UI. -->
+    <string name="compact_apps" tools:ignore="MissingTranslation">Apps</string>
+    <string name="compact_settings" tools:ignore="MissingTranslation">Settings</string>
+    <string name="compact_home" tools:ignore="MissingTranslation">Home</string>
 </resources>

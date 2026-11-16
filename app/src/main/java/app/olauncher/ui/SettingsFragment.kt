@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.olauncher.BuildConfig
@@ -36,13 +37,13 @@ import app.olauncher.helper.isAccessServiceEnabled
 import app.olauncher.helper.isDarkThemeOn
 import app.olauncher.helper.isEinkDisplay
 import app.olauncher.helper.isOlauncherDefault
-import app.olauncher.helper.isTablet
 import app.olauncher.helper.openAppInfo
 import app.olauncher.helper.openUrl
 import app.olauncher.helper.rateApp
 import app.olauncher.helper.setPlainWallpaper
 import app.olauncher.helper.shareApp
 import app.olauncher.helper.OlDialog
+import app.olauncher.helper.CompactDisplay
 import app.olauncher.helper.showPopupMenu
 import app.olauncher.helper.showStatusBar
 import app.olauncher.helper.showToast
@@ -94,6 +95,9 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
         populateSwipeApps()
         populateActionHints()
         initClickListeners()
+        CompactDisplay.connectSettingRows(binding.scrollLayout)
+        binding.compactBackHome.isVisible = CompactDisplay.isTiny(resources.displayMetrics)
+        binding.compactBackHome.setOnClickListener { findNavController().popBackStack() }
         initObservers()
 
         if (showPentastic)
@@ -475,13 +479,13 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
     private fun pendingOrCurrentTextSizeScale(): Float =
         if (pendingTextSizeScale > 0) pendingTextSizeScale else prefs.textSizeScale
 
-    private fun formatScale(scale: Float): String = String.format("%.1f", scale)
+    private fun formatScale(scale: Float): String = "${Math.round(scale * 200)}%"
 
     private fun adjustTextSizePreview(delta: Float, dialogBinding: DialogTextSizeBinding) {
-        val maxScale = if (isTablet(requireContext())) 2.0f else 1.5f
+        val maxScale = 2.0f
         val current = pendingOrCurrentTextSizeScale()
         val newScale = Math.round((current + delta) * 10f) / 10f
-        val clamped = newScale.coerceIn(0.5f, maxScale)
+        val clamped = newScale.coerceIn(0.75f, maxScale)
         if (clamped == current) return
         pendingTextSizeScale = clamped
         val formatted = formatScale(clamped)

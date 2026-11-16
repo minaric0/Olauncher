@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.view.doOnLayout
 import androidx.core.view.setPadding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +32,7 @@ import app.olauncher.data.Constants
 import app.olauncher.data.Prefs
 import app.olauncher.databinding.FragmentHomeBinding
 import app.olauncher.helper.appUsagePermissionGranted
-import app.olauncher.helper.dpToPx
+import app.olauncher.helper.CompactDisplay
 import app.olauncher.helper.expandNotificationDrawer
 import app.olauncher.helper.getChangedAppTheme
 import app.olauncher.helper.getUserHandleFromString
@@ -57,6 +58,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private fun dp(value: Int): Int = (value * resources.displayMetrics.density + 0.5f).toInt()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -75,6 +78,12 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         setHomeAlignment(prefs.homeAlignment)
         initSwipeTouchListener()
         initClickListeners()
+        if (CompactDisplay.isTiny(resources.displayMetrics)) {
+            binding.compactNavigation.isVisible = true
+            binding.homeAppsLayout.setPadding(dp(12), dp(8), dp(12), dp(8))
+            (binding.homeAppsScroll.layoutParams as FrameLayout.LayoutParams).bottomMargin = dp(48)
+            (binding.dateTimeLayout.layoutParams as FrameLayout.LayoutParams).topMargin = dp(4)
+        }
     }
 
     override fun onResume() {
@@ -87,6 +96,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
     override fun onClick(view: View) {
         when (view.id) {
+            R.id.compactApps -> showAppList(Constants.FLAG_LAUNCH_APP)
+            R.id.compactSettings -> findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
             R.id.lock -> {}
             // Home button for recents feature disabled
             // R.id.recents -> {}
@@ -174,7 +185,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     private fun initObservers() {
-        if (prefs.firstSettingsOpen) {
+        if (prefs.firstSettingsOpen && !CompactDisplay.isTiny(resources.displayMetrics)) {
             binding.firstRunTips.visibility = View.VISIBLE
             binding.setDefaultLauncher.visibility = View.GONE
         } else binding.firstRunTips.visibility = View.GONE
@@ -192,7 +203,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 setHomeAlignment()
             }
             if (binding.firstRunTips.isVisible) return@Observer
-            binding.setDefaultLauncher.isVisible = it.not() && prefs.hideSetDefaultLauncher.not()
+            binding.setDefaultLauncher.isVisible = it.not() && prefs.hideSetDefaultLauncher.not() &&
+                !CompactDisplay.isTiny(resources.displayMetrics)
         })
         viewModel.homeAppAlignment.observe(viewLifecycleOwner) {
             setHomeAlignment(it)
@@ -212,6 +224,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     private fun initSwipeTouchListener() {
         val context = requireContext()
         binding.mainLayout.setOnTouchListener(getSwipeGestureListener(context))
+        // Standard click/long-click handlers let the compact home list scroll normally.
+        if (CompactDisplay.isTiny(resources.displayMetrics)) return
         binding.homeApp1.setOnTouchListener(getViewSwipeTouchListener(context, binding.homeApp1))
         binding.homeApp2.setOnTouchListener(getViewSwipeTouchListener(context, binding.homeApp2))
         binding.homeApp3.setOnTouchListener(getViewSwipeTouchListener(context, binding.homeApp3))
@@ -223,6 +237,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     private fun initClickListeners() {
+        binding.compactApps.setOnClickListener(this)
+        binding.compactSettings.setOnClickListener(this)
         binding.lock.setOnClickListener(this)
         // Home button for recents feature disabled
         // binding.recents.setOnClickListener(this)
@@ -272,6 +288,13 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         binding.dateTimeLayout.isVisible = prefs.dateTimeVisibility != Constants.DateTime.OFF
         binding.clock.isVisible = Constants.DateTime.isTimeVisible(prefs.dateTimeVisibility)
         binding.date.isVisible = Constants.DateTime.isDateVisible(prefs.dateTimeVisibility)
+        if (CompactDisplay.isTiny(resources.displayMetrics)) {
+            if (binding.dateTimeLayout.isVisible) {
+                binding.dateTimeLayout.doOnLayout {
+                    _binding?.homeAppsScroll?.setPadding(0, it.height + dp(8), 0, 0)
+                }
+            } else binding.homeAppsScroll.setPadding(0, 0, 0, 0)
+        }
 
 //        var dateText = SimpleDateFormat("EEE, d MMM", Locale.getDefault()).format(Date())
         val dateFormat = SimpleDateFormat("EEE, d MMM", Locale.getDefault())
@@ -294,11 +317,11 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         binding.tvScreenTime.visibility = View.VISIBLE
 
         val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-        val horizontalMargin = if (isLandscape) 64.dpToPx() else 10.dpToPx()
+        val horizontalMargin = if (isLandscape) dp(64) else dp(10)
         val marginTop = if (isLandscape) {
-            if (prefs.dateTimeVisibility == Constants.DateTime.DATE_ONLY) 36.dpToPx() else 56.dpToPx()
+            if (prefs.dateTimeVisibility == Constants.DateTime.DATE_ONLY) dp(36) else dp(56)
         } else {
-            if (prefs.dateTimeVisibility == Constants.DateTime.DATE_ONLY) 45.dpToPx() else 72.dpToPx()
+            if (prefs.dateTimeVisibility == Constants.DateTime.DATE_ONLY) dp(45) else dp(72)
         }
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -310,7 +333,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             gravity = if (prefs.homeAlignment == Gravity.END) Gravity.START else Gravity.END
         }
         binding.tvScreenTime.layoutParams = params
-        binding.tvScreenTime.setPadding(10.dpToPx())
+        binding.tvScreenTime.setPadding(dp(10))
     }
 
     private fun populateHomeScreen(appCountUpdated: Boolean) {

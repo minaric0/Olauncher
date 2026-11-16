@@ -38,6 +38,17 @@
             app:theme="@style/AppSearchText" />
 
         <TextView
+            android:id="@+id/compactDrawerHome"
+            style="@style/TextSmallBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:text="@string/compact_home"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/appRename"
             style="@style/TextSmall"
             android:layout_width="wrap_content"
@@ -65,6 +76,6 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:fadingEdgeLength="24dp"
-        android:requiresFadingEdge="vertical" />
+        android:requiresFadingEdge="none" />
 
 </LinearLayout>

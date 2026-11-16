@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainActivityLayout"
     android:layout_width="match_parent"
@@ -10,10 +11,10 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadingEdgeLength="24dp"
+        android:layout_marginVertical="8dp"
+        android:fadingEdgeLength="48dp"
         android:overScrollMode="never"
-        android:paddingHorizontal="100dp"
-        android:requiresFadingEdge="vertical"
+        android:requiresFadingEdge="none"
         android:scrollbars="none">
 
         <LinearLayout
@@ -21,7 +22,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingVertical="56dp">
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/compactBackHome"
+                style="@style/TextSmallBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="24dp"
+                android:text="@string/compact_home"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,16 +42,20 @@
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/rounded_rect_shade_color"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="16dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp">
 
                     <TextView
                         android:id="@+id/olauncherHiddenApps"
                         style="@style/TextLarge"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginEnd="64dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="@string/app_name" />
@@ -50,7 +66,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:padding="4dp"
-                        android:src="@drawable/ic_info" />
+                        android:src="@drawable/ic_info"
+                        app:tint="?attr/primaryColor" />
                 </FrameLayout>
 
                 <TextView
@@ -59,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="18dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/set_as_default_launcher" />
 
@@ -69,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:drawablePadding="8dp"
                     android:gravity="center"
@@ -81,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/more_features" />
 
@@ -90,28 +107,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_rect_shade_color"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="16dp"
+                tools:visibility="visible">
 
                 <TextView
                     style="@style/TextLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/home_screen"
                     android:textColor="?attr/primaryColor" />
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
@@ -121,21 +144,27 @@
                     <TextView
                         android:id="@+id/homeAppsNum"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
-                        android:padding="8dp" />
-                </FrameLayout>
+                        android:paddingVertical="8dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        tools:text="@string/_8" />
+                </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
@@ -145,22 +174,25 @@
                     <TextView
                         android:id="@+id/dateTime"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:padding="8dp"
                         android:text="@string/on" />
-                </FrameLayout>
+                </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
@@ -170,23 +202,27 @@
                     <TextView
                         android:id="@+id/alignment"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:padding="8dp"
                         android:text="@string/left" />
-                </FrameLayout>
+                </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:id="@+id/screenTimeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
@@ -196,43 +232,51 @@
                     <TextView
                         android:id="@+id/screenTimeOnOff"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:padding="8dp"
-                        android:text="@string/left" />
-                </FrameLayout>
+                        android:text="@string/off" />
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_rect_shade_color"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="16dp"
+                tools:visibility="visible">
 
                 <TextView
                     style="@style/TextLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/appearance"
                     android:textColor="?attr/primaryColor" />
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:paddingVertical="8dp"
                         android:text="@string/auto_show_keyboard"
                         android:textColor="?attr/primaryColor" />
@@ -240,23 +284,26 @@
                     <TextView
                         android:id="@+id/autoShowKeyboard"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:padding="8dp"
                         android:text="@string/on" />
-                </FrameLayout>
+                </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         android:id="@+id/dailyWallpaperUrl"
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
@@ -265,47 +312,53 @@
                     <TextView
                         android:id="@+id/dailyWallpaper"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:padding="8dp"
                         android:text="@string/off" />
-                </FrameLayout>
+                </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
-                        android:text="@string/status_bar"
+                        android:text="@string/notification_bar"
                         android:textColor="?attr/primaryColor" />
 
                     <TextView
                         android:id="@+id/statusBar"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:padding="8dp"
                         android:text="@string/off" />
-                </FrameLayout>
+                </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
@@ -315,22 +368,25 @@
                     <TextView
                         android:id="@+id/appThemeText"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:padding="8dp"
                         android:text="@string/dark" />
-                </FrameLayout>
+                </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
@@ -340,23 +396,26 @@
                     <TextView
                         android:id="@+id/boldFont"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:padding="8dp"
                         android:text="@string/off" />
-                </FrameLayout>
+                </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="4dp">
+                    android:layout_marginBottom="4dp"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:paddingVertical="8dp"
@@ -366,32 +425,36 @@
                     <TextView
                         android:id="@+id/textSizeValue"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
                         android:paddingVertical="8dp"
-                        android:paddingStart="24dp"
+                        android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         tools:text="1.0" />
-                </FrameLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_rect_shade_color"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="16dp">
 
                 <TextView
                     style="@style/TextLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/gestures"
                     android:textColor="?attr/primaryColor" />
 
@@ -399,16 +462,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="24dp"
-                        android:layout_weight="1"
-                        android:lines="1"
                         android:paddingVertical="8dp"
                         android:text="@string/swipe_left_app"
                         android:textColor="?attr/primaryColor" />
@@ -416,11 +478,11 @@
                     <TextView
                         android:id="@+id/swipeLeftApp"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
-                        android:lines="1"
                         android:padding="8dp" />
                 </LinearLayout>
 
@@ -428,16 +490,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="24dp"
-                        android:layout_weight="1"
-                        android:lines="1"
                         android:paddingVertical="8dp"
                         android:text="@string/swipe_right_app"
                         android:textColor="?attr/primaryColor" />
@@ -445,38 +506,42 @@
                     <TextView
                         android:id="@+id/swipeRightApp"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
+                        android:gravity="end|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_marginEnd="4dp"
-                        android:lines="1"
                         android:padding="8dp" />
                 </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="12dp"
-                    android:visibility="visible">
+                    android:visibility="visible"
+                    android:orientation="vertical"
+                    android:tag="settingRow">
 
                     <TextView
                         style="@style/TextSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="8dp"
-                        android:text="@string/gestures"
+                        android:text="@string/double_tap_to_lock_screen"
                         android:textColor="?attr/primaryColor" />
 
                     <TextView
                         android:id="@+id/toggleLock"
                         style="@style/TextSmallBold"
-                        android:layout_width="wrap_content"
+                        android:minHeight="48dp"
+                        android:gravity="end|center_vertical"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:padding="10dp"
                         android:text="@string/off" />
-                </FrameLayout>
+                </LinearLayout>
 
                 <!-- Home button for recents feature disabled
                 <FrameLayout
@@ -490,6 +555,7 @@
                         style="@style/TextSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="80dp"
                         android:paddingVertical="8dp"
                         android:text="@string/home_button_show_recents"
                         android:textColor="?attr/primaryColor" />
@@ -509,7 +575,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -518,7 +584,8 @@
                     style="@style/TextSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:padding="10dp"
                     android:text="@string/privacy" />
 
@@ -527,7 +594,8 @@
                     style="@style/TextSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:padding="10dp"
                     android:text="@string/share" />
 
@@ -536,7 +604,8 @@
                     style="@style/TextSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:padding="10dp"
                     android:text="@string/rate" />
 
@@ -545,7 +614,8 @@
                     style="@style/TextSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:padding="10dp"
                     android:text="@string/github" />
 
@@ -554,18 +624,17 @@
                     style="@style/TextSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:padding="10dp"
                     android:text="@string/x_twitter" />
-
             </LinearLayout>
 
             <TextView
                 android:id="@+id/footer"
-                style="@style/TextSmallBold"
-                android:layout_width="wrap_content"
+                style="@style/TextSmall"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:letterSpacing="0.03"
                 android:padding="12dp"

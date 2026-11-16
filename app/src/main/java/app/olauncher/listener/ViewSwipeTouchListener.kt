@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import app.olauncher.data.Constants
+import app.olauncher.helper.CompactDisplay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.abs
 
-internal open class ViewSwipeTouchListener(c: Context?, v: View) : OnTouchListener {
+internal open class ViewSwipeTouchListener(private val c: Context?, v: View) : OnTouchListener {
     private var longPressOn = false
     private val gestureDetector: GestureDetector
 
@@ -28,7 +29,7 @@ internal open class ViewSwipeTouchListener(c: Context?, v: View) : OnTouchListen
     }
 
     private inner class GestureListener(private val view: View) : SimpleOnGestureListener() {
-        private val SWIPE_THRESHOLD: Int = 100
+        private val SWIPE_THRESHOLD: Int = c?.resources?.displayMetrics?.let(CompactDisplay::swipeDistance) ?: 100
         private val SWIPE_VELOCITY_THRESHOLD: Int = 100
 
         override fun onDown(e: MotionEvent): Boolean {

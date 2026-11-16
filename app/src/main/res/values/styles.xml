@@ -43,7 +43,7 @@
         <item name="primaryShadeDarkColor">@color/blackInverseTrans25</item>
         <item name="dialogShadeColor">@color/blackInverseTrans50</item>
 
-        <item name="mainFontFamily">sans-serif-light</item>
+        <item name="mainFontFamily">sans-serif</item>
 
         <!-- Popup menus and dialogs used by settings -->
         <item name="popupMenuStyle">@style/OlPopupMenu</item>
@@ -55,7 +55,7 @@
 
     <!-- Applied over AppTheme when bold font is enabled -->
     <style name="BoldFontOverlay">
-        <item name="mainFontFamily">sans-serif</item>
+        <item name="mainFontFamily">sans-serif-medium</item>
     </style>
 
     <style name="WindowAnimationTransition">
@@ -75,12 +75,13 @@
     </style>
 
     <style name="TextDefault" parent="@android:style/TextAppearance.Large">
+        <item name="android:fontFamily">?attr/mainFontFamily</item>
         <item name="android:textColor">@drawable/text_colors_default</item>
         <item name="android:textColorHint">?attr/primaryColorTrans80</item>
-        <item name="android:shadowColor">?attr/primaryTextShadowColor</item>
+        <item name="android:shadowColor">@android:color/transparent</item>
         <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">2</item>
-        <item name="android:shadowRadius">4</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">0</item>
     </style>
 
     <style name="TextLarge" parent="TextDefault">
@@ -89,7 +90,7 @@
     </style>
 
     <style name="TextMedium" parent="TextDefault">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">40sp</item>
     </style>
 
     <style name="TextSmall" parent="TextDefault">

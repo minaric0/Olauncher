@@ -109,7 +109,7 @@
             android:focusable="true"
             android:includeFontPadding="false"
             android:padding="8dp"
-            android:textSize="18sp"
+            android:textSize="36sp"
             tools:text="@string/okay" />
     </LinearLayout>
 

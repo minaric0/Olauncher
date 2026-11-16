@@ -39,7 +39,7 @@
             style="@style/TextDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="?attr/mainFontFamily"
             android:format12Hour="h:mm"
             android:textSize="@dimen/time_size"
             tools:text="02:34" />
@@ -73,10 +73,17 @@
         tools:visibility="visible" />
 
     <!-- Home apps-->
+    <ScrollView
+        android:id="@+id/homeAppsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
     <LinearLayout
         android:id="@+id/homeAppsLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingHorizontal="24dp"
@@ -90,6 +97,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="@string/app"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/home_app_padding_vertical"
             android:tag="@string/tag_1"
             android:visibility="gone"
@@ -102,6 +111,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="@string/app"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/home_app_padding_vertical"
             android:tag="@string/tag_2"
             android:visibility="gone"
@@ -114,6 +125,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="@string/app"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/home_app_padding_vertical"
             android:tag="@string/tag_3"
             android:visibility="gone"
@@ -126,6 +139,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="@string/app"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/home_app_padding_vertical"
             android:tag="@string/tag_4"
             android:visibility="gone"
@@ -138,6 +153,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="@string/app"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/home_app_padding_vertical"
             android:tag="@string/tag_5"
             android:visibility="gone"
@@ -150,6 +167,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="@string/app"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/home_app_padding_vertical"
             android:tag="@string/tag_6"
             android:visibility="gone"
@@ -162,6 +181,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="@string/app"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/home_app_padding_vertical"
             android:tag="@string/tag_7"
             android:visibility="gone"
@@ -174,12 +195,15 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="@string/app"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/home_app_padding_vertical"
             android:tag="@string/tag_8"
             android:visibility="gone"
             tools:visibility="visible" />
 
     </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/firstRunTips"
@@ -207,4 +231,33 @@
         android:maxLines="1"
         android:text="@string/set_as_default_launcher_u"
         android:visibility="gone" />
+    <LinearLayout
+        android:id="@+id/compactNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:background="?attr/primaryInverseColor"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/compactApps"
+            style="@style/TextSmallBold"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/compact_apps" />
+
+        <TextView
+            android:id="@+id/compactSettings"
+            style="@style/TextSmallBold"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/compact_settings" />
+    </LinearLayout>
 </FrameLayout>

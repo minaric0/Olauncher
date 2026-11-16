@@ -16,7 +16,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="56dp"
         android:animateLayoutChanges="true"
         android:orientation="horizontal">
 
@@ -24,18 +23,30 @@
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:gravity="end"
             android:imeOptions="actionSearch"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="7dp"
             android:paddingVertical="0dp"
             android:textCursorDrawable="@null"
             app:closeIcon="@null"
             app:iconifiedByDefault="false"
             app:queryBackground="@null"
-            app:queryHint="___"
+            app:queryHint=" ___"
             app:searchIcon="@null"
             app:theme="@style/AppSearchText" />
+
+        <TextView
+            android:id="@+id/compactDrawerHome"
+            style="@style/TextSmallBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:text="@string/compact_home"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/appRename"
@@ -43,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="20dp"
             android:paddingVertical="@dimen/app_padding_vertical"
             android:text="@string/rename"
             android:textAllCaps="true"
@@ -60,12 +71,11 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="56dp"
         android:layout_weight="1"
+        android:layout_marginBottom="24dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:fadingEdgeLength="24dp"
-        android:requiresFadingEdge="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:requiresFadingEdge="none" />
 
 </LinearLayout>

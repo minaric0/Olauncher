@@ -5,8 +5,10 @@ import android.content.SharedPreferences
 import android.view.Gravity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import app.olauncher.helper.CompactDisplay
 
 class Prefs(context: Context) {
+    private val compactScreen = CompactDisplay.isTiny(context.resources.displayMetrics)
     private val PREFS_FILENAME = "app.olauncher"
 
     private val FIRST_OPEN = "FIRST_OPEN"
@@ -145,7 +147,7 @@ class Prefs(context: Context) {
         set(value) = prefs.edit { putBoolean(LOCK_MODE, value).apply() }
 
     var autoShowKeyboard: Boolean
-        get() = prefs.getBoolean(AUTO_SHOW_KEYBOARD, true)
+        get() = prefs.getBoolean(AUTO_SHOW_KEYBOARD, !compactScreen)
         set(value) = prefs.edit { putBoolean(AUTO_SHOW_KEYBOARD, value).apply() }
 
     var keyboardMessageShown: Boolean
@@ -181,7 +183,7 @@ class Prefs(context: Context) {
         set(value) = prefs.edit { putBoolean(STATUS_BAR, value).apply() }
 
     var dateTimeVisibility: Int
-        get() = prefs.getInt(DATE_TIME_VISIBILITY, Constants.DateTime.ON)
+        get() = prefs.getInt(DATE_TIME_VISIBILITY, if (compactScreen) Constants.DateTime.OFF else Constants.DateTime.ON)
         set(value) = prefs.edit { putInt(DATE_TIME_VISIBILITY, value).apply() }
 
     var swipeLeftEnabled: Boolean
@@ -201,7 +203,7 @@ class Prefs(context: Context) {
         set(value) = prefs.edit { putFloat(TEXT_SIZE_SCALE, value).apply() }
 
     var boldFont: Boolean
-        get() = prefs.getBoolean(BOLD_FONT, false)
+        get() = prefs.getBoolean(BOLD_FONT, true)
         set(value) = prefs.edit { putBoolean(BOLD_FONT, value).apply() }
 
     var proMessageShown: Boolean

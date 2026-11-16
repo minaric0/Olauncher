@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import app.olauncher.data.Constants
+import app.olauncher.helper.CompactDisplay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -20,7 +21,7 @@ Swipe, double tap and long press touch listener for a view
 Source: https://www.tutorialspoint.com/how-to-handle-swipe-gestures-in-kotlin
 */
 
-internal open class OnSwipeTouchListener(c: Context?) : OnTouchListener {
+internal open class OnSwipeTouchListener(private val c: Context?) : OnTouchListener {
     private var longPressOn = false
 
     //    private var doubleTapOn = false
@@ -33,7 +34,7 @@ internal open class OnSwipeTouchListener(c: Context?) : OnTouchListener {
     }
 
     private inner class GestureListener : SimpleOnGestureListener() {
-        private val SWIPE_THRESHOLD: Int = 100
+        private val SWIPE_THRESHOLD: Int = c?.resources?.displayMetrics?.let(CompactDisplay::swipeDistance) ?: 100
         private val SWIPE_VELOCITY_THRESHOLD: Int = 100
 
         override fun onDown(e: MotionEvent): Boolean {

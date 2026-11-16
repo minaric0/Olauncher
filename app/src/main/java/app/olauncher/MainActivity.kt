@@ -32,6 +32,7 @@ import app.olauncher.helper.isDarkThemeOn
 import app.olauncher.helper.isDaySince
 import app.olauncher.helper.isDefaultLauncher
 import app.olauncher.helper.OlDialog
+import app.olauncher.helper.CompactDisplay
 import app.olauncher.helper.isEinkDisplay
 import app.olauncher.helper.isOlauncherDefault
 import app.olauncher.helper.isSystemAnimationsDisabled
@@ -67,8 +68,9 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     override fun attachBaseContext(context: Context) {
-        val newConfig = Configuration(context.resources.configuration)
-        newConfig.fontScale = Prefs(context).textSizeScale
+        val newConfig = CompactDisplay.configuration(
+            context.resources.configuration, context.resources.displayMetrics, Prefs(context).textSizeScale
+        )
         applyOverrideConfiguration(newConfig)
         super.attachBaseContext(context)
     }
@@ -79,7 +81,8 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(prefs.appTheme)
         super.onCreate(savedInstanceState)
         if (prefs.boldFont) theme.applyStyle(R.style.BoldFontOverlay, true)
-        if (isEinkDisplay() || isSystemAnimationsDisabled()) theme.applyStyle(R.style.NoAnimationOverlay, true)
+        if (isEinkDisplay() || isSystemAnimationsDisabled() || CompactDisplay.isTiny(resources.displayMetrics))
+            theme.applyStyle(R.style.NoAnimationOverlay, true)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
